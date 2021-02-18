@@ -1,55 +1,95 @@
 import { useState } from 'react';
-import logo from './logo.svg';
+
 import './App.css';
 
 function App() {
-  let [postTitle, setPostTitleState] = useState([
+  const [postTitle, setPostTitleState] = useState([
     'men jacket',
     'good jean',
     'fancy shirt',
   ]);
-  const [likeCount, setLikeCount] = useState(0);
+  const [modal, setModal] = useState(false);
+  const [postIndex, setPostIndex] = useState(0);
 
   function changeTitle() {
     let newTitleArray = [...postTitle];
     newTitleArray[0] = 'women coat';
     setPostTitleState(newTitleArray);
   }
+  function sortPosts() {
+    let sortArray = [...postTitle];
+    sortArray.sort();
+    setPostTitleState(sortArray);
+  }
+
   return (
     <div className="App">
       <div className="black-nav">Dongwan Kim</div>
       <div className="section">
-        <div className="posts">
-          <h3>
-            {postTitle[0]}
-            <span
-              onClick={() => {
-                setLikeCount(likeCount + 1);
-              }}
-              style={{ cursor: 'pointer' }}
-            >
-              👍
-            </span>
-            {likeCount}
-          </h3>
-          <p>내용</p>
-          <p>Date</p>
-          <button onClick={changeTitle}>click</button>
-          <div className="border"></div>
-        </div>
-        <div className="posts">
-          <h3>{postTitle[1]}</h3>
-          <p>내용</p>
-          <p>Date</p>
-          <div className="border"></div>
-        </div>
-        <div className="posts">
-          <h3>{postTitle[2]}</h3>
-          <p>내용</p>
-          <p>Date</p>
-          <div className="border"></div>
-        </div>
+        {postTitle.map((t) => {
+          return (
+            <div className="posts">
+              <h3
+                onClick={() => {
+                  setPostIndex(postTitle.indexOf(t));
+                  setModal(true);
+                }}
+              >
+                {t}
+              </h3>
+              <Likes />
+              <p>내용</p>
+              <p>Date</p>
+              <div className="border"></div>
+            </div>
+          );
+        })}
       </div>
+
+      <button
+        onClick={() => {
+          setModal(!modal);
+        }}
+      >
+        Show
+      </button>
+      {modal === true ? (
+        <Modal
+          postTitle={postTitle}
+          postIndex={postIndex}
+          setModal={setModal}
+        />
+      ) : null}
+    </div>
+  );
+}
+
+function Modal(props) {
+  return (
+    <div className="modal">
+      <h2>{props.postTitle[props.postIndex]}</h2>
+      <p>date</p>
+      <p>desc</p>
+      <button
+        onClick={() => {
+          props.setModal(false);
+        }}
+      >
+        close
+      </button>
+    </div>
+  );
+}
+
+function Likes() {
+  const [count, setCount] = useState(0);
+  return (
+    <div
+      onClick={() => {
+        setCount(count + 1);
+      }}
+    >
+      👍 {count}
     </div>
   );
 }
