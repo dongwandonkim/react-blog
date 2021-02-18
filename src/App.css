@@ -1,6 +1,28 @@
 .App {
   text-align: center;
 }
+body {
+  font-family: 'fira code';
+}
+.black-nav {
+  background: #000;
+  width: 100%;
+  display: flex;
+  color: white;
+  padding: 20px;
+  font-weight: 600;
+  font-size: 20px;
+}
+.section {
+  padding: 0 24px;
+}
+.posts {
+  width: 300px;
+  text-align: left;
+}
+.border {
+  border-bottom: solid 2px black;
+}
 
 .App-logo {
   height: 40vmin;
