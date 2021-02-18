@@ -28,7 +28,23 @@ body {
   padding: 20px;
   margin-top: 20px;
 }
-
+.publish {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+.publish input {
+  font-size: 16px;
+  border-radius: 4px;
+  border: 1px solid gray;
+  padding: 5px;
+}
+.publish button {
+  margin-left: 15px;
+  border: none;
+  background: lightblue;
+  border-radius: 4px;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;

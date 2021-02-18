@@ -10,49 +10,58 @@ function App() {
   ]);
   const [modal, setModal] = useState(false);
   const [postIndex, setPostIndex] = useState(0);
+  const [inputText, setInputText] = useState('');
 
-  function changeTitle() {
-    let newTitleArray = [...postTitle];
-    newTitleArray[0] = 'women coat';
-    setPostTitleState(newTitleArray);
-  }
-  function sortPosts() {
-    let sortArray = [...postTitle];
-    sortArray.sort();
-    setPostTitleState(sortArray);
+  function newPost() {
+    if (inputText === '') return;
+    // const newPost = [...postTitle, inputText];
+    const newPost = postTitle;
+    newPost.unshift([inputText]);
+
+    setPostTitleState(newPost);
   }
 
   return (
     <div className="App">
       <div className="black-nav">Dongwan Kim</div>
       <div className="section">
-        {postTitle.map((t) => {
+        {postTitle.map((t, i) => {
           return (
-            <div className="posts">
+            <div className="posts" key={i}>
               <h3
                 onClick={() => {
-                  setPostIndex(postTitle.indexOf(t));
+                  setPostIndex(i);
                   setModal(true);
                 }}
               >
                 {t}
               </h3>
               <Likes />
-              <p>내용</p>
               <p>Date</p>
               <div className="border"></div>
             </div>
           );
         })}
       </div>
-
-      <button
-        onClick={() => {
-          setModal(!modal);
-        }}
-      >
-        Show
-      </button>
+      <div className="publish">
+        <input
+          type="text"
+          onChange={(e) => {
+            setInputText(e.target.value);
+          }}
+        />
+        <button
+          onClick={() => {
+            if (inputText === '') return;
+            // const newPost = [inputText, ...postTitle];
+            const newPost = [...postTitle];
+            newPost.unshift(inputText);
+            setPostTitleState(newPost);
+          }}
+        >
+          Save
+        </button>
+      </div>
       {modal === true ? (
         <Modal
           postTitle={postTitle}
