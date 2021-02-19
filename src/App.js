@@ -12,15 +12,6 @@ function App() {
   const [postIndex, setPostIndex] = useState(0);
   const [inputText, setInputText] = useState('');
 
-  function newPost() {
-    if (inputText === '') return;
-    // const newPost = [...postTitle, inputText];
-    const newPost = postTitle;
-    newPost.unshift([inputText]);
-
-    setPostTitleState(newPost);
-  }
-
   return (
     <div className="App">
       <div className="black-nav">Dongwan Kim</div>
